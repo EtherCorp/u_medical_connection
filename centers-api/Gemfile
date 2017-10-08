@@ -42,3 +42,6 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 # Gemfile
 gem 'grape'
 gem 'grape-entity'
+
+# Mongo for Activity Logger
+gem 'mongo'
