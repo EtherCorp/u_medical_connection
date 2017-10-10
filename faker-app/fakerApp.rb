@@ -2,7 +2,8 @@
 require 'faker'
 require 'rubygems'
 require 'json'
-
+require 'net/http'
+require 'uri'
 n = 0
 File.open("example.json","w") do |f|
 while n < 100
@@ -47,8 +48,11 @@ while n < 100
      f.puts(my_hash)
      f.puts
    end
-
-   /my_other_hash=JSON.parse(my_hash)
-   puts my_other_hash['name']/
+   header = {'Content-Type': 'text/json'}
+   uri = URI.parse("http://localhost:3000/api/v1/")
+   http = Net::HTTP.new(uri.host, uri.port)
+  request = Net::HTTP::Post.new(uri.request_uri)
+  request.body = my_hash
+  response = http.request(request)
 end
 end
