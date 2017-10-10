@@ -1,22 +1,34 @@
 require 'mongo'
 
 class ActivityLogger
-  @@config = {
-    host: '127.0.0.1',
-    port: '27017',
-    db: 'test'
-  }
-
-  def self.mongo
-    @@connection ||= Mongo::Client.new(
-      ["#{@@config[:host]}:#{@@config[:port]}"],
-      database: @@config[:db]
-    )
-    @@connection[:logs]
+  @@connection=nil
+  
+  def initialize
+    # set logger level to FATAL (only show serious errors)
+    Mongo::Logger.logger.level = ::Logger::FATAL
+    # set up a connection to the mongod instance which is running locally,
+    # on the default port 27017
+    if @@connection.nil?
+      @@connection = Mongo::Client.new([ '127.0.0.1:27017' ], :database => 'test')  
+    end
+    
   end
 
-  def self.log(object)
-    mongo.insert_one(object)
+  def connection
+    @@connection
+  end
+
+  # get connection to one collection
+  def movements
+    @@connection["movements"]
+  end
+
+  def save_movement(params)
+    @@connection["movements"].insert_one(params)
+  end 
+
+  def close
+    @@connection.close
   end
 end
 
