@@ -45,3 +45,6 @@ gem 'grape-entity'
 
 # Mongo for Activity Logger
 gem 'mongo'
+
+#HTTP gem for requests - Documentation: https://github.com/httprb/http/wiki
+gem 'http'
