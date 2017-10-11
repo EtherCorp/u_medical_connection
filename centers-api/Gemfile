@@ -51,3 +51,6 @@ gem 'mongoid'
 # For use sidekiq how background task queue
 gem 'redis', '~> 3.0'
 gem 'sidekiq'
+
+#HTTP gem for requests - Documentation: https://github.com/httprb/http/wiki
+gem 'http'
