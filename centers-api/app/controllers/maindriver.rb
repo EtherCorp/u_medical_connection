@@ -20,11 +20,11 @@ class MainDriver
       @dc.medicalCenter = data_hash_json['medical_center']
       if @dc.medicalCenter == "medical_center"
         @driver = DriverCM1.new
-        @driver.parseCM1(data,@dc.medicalCenter)
+        @driver.parseCM1(data)
       end
       if @dc.medicalCenter == "medical_center2"
         @driver = DriverCM2.new
-        a = @driver.parseCM2(data,@dc.medicalCenter)
+        a = @driver.parseCM2(data)
         puts a.name
         puts a.lastName
         puts a.save

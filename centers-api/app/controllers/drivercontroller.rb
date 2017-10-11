@@ -6,6 +6,8 @@ class DriverController #< ApplicationController
   attr_accessor :medicalCenter
   attr_accessor :token
   attr_accessor :save
+  attr_accessor :status
+  attr_accessor :queued
 
   def parse(data)
     
