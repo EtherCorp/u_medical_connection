@@ -21,10 +21,18 @@ class ActivityLogger
     @@connection['movements']
   end
 
+  def patients
+    @@connection['patients']
+  end
+
   def save_movement(params)
     @@connection['movements'].insert_one(params)
   end
 
+  def save_patient(params)
+    @@connection['patients'].insert_one(params)
+  end
+  
   def close
     @@connection.close
   end
