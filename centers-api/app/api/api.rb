@@ -1,3 +1,5 @@
+
+# standard class  of API
 class API < Grape::API
   prefix 'api'
   format :json
