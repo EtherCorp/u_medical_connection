@@ -6,12 +6,12 @@ module Request
 
     def self.GET(id = nil)
       dir = @@url + @entity + "/" + id.to_s
-      puts HTTP.get(dir)
+      req = HTTP.get(dir)
     end
 
-    def self.POST(id)
-      dir = @@url + @entity + "/" + id.to_s
-      req = HTTP.post(dir)
+    def self.POST(params)
+      dir = @@url + @entity
+      req = HTTP.post(dir, :json => JSON.parse params)
     end
   end
 end

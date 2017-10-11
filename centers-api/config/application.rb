@@ -33,5 +33,9 @@ module CentersApi
     # Grape router
     config.paths.add File.join('app', 'api'), glob: File.join('**', '*.rb')
     config.autoload_paths += Dir[Rails.root.join('app', 'api', '*')]
+
+    #Requests router
+    config.paths.add File.join('app', 'requests'), glob: File.join('**', '*.rb')
+    config.autoload_paths += Dir[Rails.root.join('app', 'requests', '*')]
   end
 end
