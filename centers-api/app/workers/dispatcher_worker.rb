@@ -11,7 +11,7 @@ class DispatcherWorker
     puts '**************************'
     puts 'TODO: Transform JSON input data with Driver'
     puts 'TODO: Send transform data to Unicorn with'
-    Request::Base.GET() # example Reques usage
+    Request::Base.POST(json_data)
     puts 'TODO: Is saved data?'
     puts '-------------------------------------'
   end
