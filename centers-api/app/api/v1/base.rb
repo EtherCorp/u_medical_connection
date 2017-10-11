@@ -8,7 +8,7 @@ module V1
     conn = ActivityLogger.new
     # endpoint example
     desc 'Accepts information and passes it to the queue as default'
-    post do
+    post 'patients' do
       movement = {
         token: params[:token],
         medical_center: params[:medical_center],
@@ -16,7 +16,8 @@ module V1
         queued: nil,
         body: params
       }
-      conn.save_movement(movement)
+      #conn.save_movement(movement)
+      puts movement
     end
   end
 end
