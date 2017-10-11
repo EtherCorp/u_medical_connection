@@ -4,7 +4,7 @@ require File.expand_path('../drivercontroller.rb', __FILE__)
 class DriverCM1 < DriverController
 	
 
-  	def parseCM1(data)
+  	def parseCM1(data, medicalCenter)
   		@dc = DriverController.new
       	data_hash_json = JSON.parse(data)
       	first_name = data_hash_json['body']['first_name']
@@ -17,6 +17,8 @@ class DriverCM1 < DriverController
       	@dc.token = token_s
       	save_s = data_hash_json['save']
       	@dc.save = save_s
+      	@dc.medicalCenter = medicalCenter
   		print "json contiene token: ",@dc.token," medicalCenter: ",@dc.medicalCenter," save: ",@dc.save," name: ", @dc.name, " lastName: ", @dc.lastName, " age: ", @dc.age, " rut:", @dc.rut, "\n"
+  		return @dc
   	end
 end

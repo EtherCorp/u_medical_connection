@@ -1,10 +1,12 @@
 require 'json'
+require './jsonfileestandar'
 require File.expand_path('../drivercontroller.rb', __FILE__)
 
 class DriverCM2 < DriverController
 
-  def parseCM2(data)
+  def parseCM2(data, medicalCenter)
     @dc = DriverController.new
+    jsonfile = JsonFileEstandar.new
     data_hash_json = JSON.parse(data)
     nameOne = data_hash_json['body']['name']
     aux = nameOne.gsub(/\s+/m, ' ').strip.split(" ")
@@ -16,7 +18,10 @@ class DriverCM2 < DriverController
     @dc.token = token_s
     save_s = data_hash_json['save']
     @dc.save = save_s
+    @dc.medicalCenter = medicalCenter
     print "json contiene token: ",@dc.token," medicalCenter: ",@dc.medicalCenter," save: ",@dc.save," name: ", @dc.name, " lastName: ", @dc.lastName, " age: ", @dc.age, " rut:", @dc.rut, "\n"
+    jsonfile.createJson(@dc.token, @dc.medicalCenter, @dc.save, @dc.name, @dc.lastName,  @dc.age, @dc.rut)
+    return @dc
   end
 end
 
