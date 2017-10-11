@@ -10,7 +10,8 @@ module V1
 
     desc 'Accepts information and passes it to the queue as default'
     post do
-      movement={:save => false , :data => params.keys.first}
+
+      movement={:token => "000",:medical_center => "0",:status => "Pending" , :data => params}
       conn.save_movement(movement)
     end
 
