@@ -1,3 +1,5 @@
+Dir[File.expand_path 'centers/**/*.rb'].each { |f| require_relative(f) }
+
 module Drivers
   # Base class of all Drivers.
   class Base
