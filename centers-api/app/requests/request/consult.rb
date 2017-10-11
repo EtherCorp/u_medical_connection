@@ -9,12 +9,12 @@ module Request
 
     def self.POST_movement_details(id, movement_id, params)
       dir = @@url + @entity + "/" + id.to_s + "/" + "movements/" + movement_id.to_s + "/details"
-      req = HTTP.post(dir, :json => JSON.parse params)
+      req = HTTP.post(dir, :json => params)
     end
 
     def self.POST_movement_documents(id, movement_id, params)
       dir = @@url + @entity + "/" + id.to_s + "/" + "movements/" + movement_id.to_s + "/documents"
-      req = HTTP.post(dir, :json => JSON.parse params)
+      req = HTTP.post(dir, :json => params)
     end
   end
 end

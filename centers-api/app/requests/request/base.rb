@@ -11,7 +11,7 @@ module Request
 
     def self.POST(params)
       dir = @@url + @entity
-      req = HTTP.post(dir, :json => JSON.parse params)
+      req = HTTP.post(dir, :json => params)
     end
   end
 end
