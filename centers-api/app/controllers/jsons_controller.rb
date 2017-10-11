@@ -1,7 +1,6 @@
 class JsonsController < ApplicationController
   require_relative '../workers/dispatcher_worker'
   require 'json'
-  @end_point_unicorn = 'http\://localhost:3000/jsons'
 
   def index
     @jsons = Json.all
@@ -17,10 +16,9 @@ class JsonsController < ApplicationController
       json_data = JSON.generate(hash)
       puts "**************************"
       puts json_data
-      puts @end_point_unicorn
       puts "**************************"
       # json data need are a string
-      DispatcherWorker.perform_async(@end_point_unicorn, json_data)
+      DispatcherWorker.perform_async(hash)
       render json: { status: 'SUCCESS', message: 'Loaded json from medical center', data: @json }, status: :ok
     else
       render json: { status: 'ERROR', message: 'Json not saved', data: @json.errors }, status: :unprocessable_entity
