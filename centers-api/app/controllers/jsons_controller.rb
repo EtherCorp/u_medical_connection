@@ -1,13 +1,26 @@
 class JsonsController < ApplicationController
+  require_relative '../workers/dispatcher_worker'
+  require 'json'
+  @end_point_unicorn = 'http\://localhost:3000/jsons'
+
   def index
     @jsons = Json.all
   end
 
   def create
     @json = Json.new(json_params)
-
     if @json.save
-      ReportWorker.perform_async(@json.token, @json.medical_center, @json.title, @json.body)
+      # ReportWorker.perform_async(@json.token, @json.medical_center, @json.title, @json.body)
+      # Example hash to string format
+      hash = { token: @json.token, medical_center: @json.medical_center,
+               title: @json.title, body: @json.body }
+      json_data = JSON.generate(hash)
+      puts "**************************"
+      puts json_data
+      puts @end_point_unicorn
+      puts "**************************"
+      # json data need are a string
+      DispatcherWorker.perform_async(@end_point_unicorn, json_data)
       render json: { status: 'SUCCESS', message: 'Loaded json from medical center', data: @json }, status: :ok
     else
       render json: { status: 'ERROR', message: 'Json not saved', data: @json.errors }, status: :unprocessable_entity
