@@ -16,7 +16,7 @@ class DispatcherWorker
     puts JSON.generate(normalized_json)
 
     puts 'TODO: Send transform data to Unicorn with'
-    Request::Patient.GET_consults()
+    # Request::Patient.GET_consults(id)
     puts 'TODO: Is saved data?'
     puts '-------------------------------------'
   end
