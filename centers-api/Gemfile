@@ -46,6 +46,12 @@ gem 'grape-entity'
 # Mongo for Activity Logger
 gem 'mongo'
 
+# For manage mongo from ruby
+gem 'mongoid'
+# For use sidekiq how background task queue
+gem 'redis', '~> 3.0'
+gem 'sidekiq'
+
 #HTTP gem for requests - Documentation: https://github.com/httprb/http/wiki
 gem 'http'
 

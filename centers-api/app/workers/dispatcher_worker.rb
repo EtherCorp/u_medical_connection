@@ -1,3 +1,4 @@
+# Dispatcher worker that transform data and send to unicorn
 class DispatcherWorker
   include Sidekiq::Worker
   sidekiq_options retry: false
@@ -17,6 +18,11 @@ class DispatcherWorker
     puts 'TODO: Send transform data to Unicorn with'
     #response1 = Request::Consult.GET_movement(json_data['token'])
     #puts response1.code
+    response1 = Request::Consult.GET_movement(json_data['token'])
+    response2 = Request::Consult.POST(json_data)
+    puts response1.code
+    puts response2.code
+>>>>>>> origin/feature/workers
     puts 'TODO: Is saved data?'
     puts '-------------------------------------'
   end
