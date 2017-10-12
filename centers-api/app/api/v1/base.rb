@@ -1,6 +1,6 @@
 require 'activity_logger'
 require 'json'
-#require_relative '../../workers/report_worker'
+require_relative '../../workers/dispatcher_worker'
 #ReportWorker.perform_async(@json.token, @json.medical_center, @json.title, @json.body)
 # module v1 of a API
 module V1
@@ -19,7 +19,7 @@ module V1
         body: params
       }
       conn.save_patient(patient)
-      #ReportWorker.perform_async( patient[:token], patient[:medical_center], patient[:status], patient[:queued], patient[:body])
+      DispatcherWorker.perform_async('patients', patient[:body])
       puts patient
     end
   end
