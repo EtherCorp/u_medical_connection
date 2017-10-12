@@ -13,3 +13,4 @@
 -start mongodb: mongod
 -bundle exec sidekiq
 -start project: u_medical_connection/center-api rails s -p 3001
+-Star faker: u_medical_connection/faker-app ruby main.rb
