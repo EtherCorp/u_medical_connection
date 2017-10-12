@@ -15,8 +15,8 @@ class DispatcherWorker
     normalized_json = driver.parse(request_type, json_data)
     puts JSON.generate(normalized_json)
 
-    puts 'TODO: Send transform data to Unicorn with'
-    # Request::Patient.GET_consults(id)
+    puts 'end transform data to Unicorn with'
+    Request::Patient.POST(normalized_json)
     puts 'TODO: Is saved data?'
     puts '-------------------------------------'
   end
