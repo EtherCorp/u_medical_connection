@@ -2,7 +2,7 @@ You can instantiate a driver like this:
 
 `center_driver = 'MedicalCenter1' `
 
-`driver = Object.const_get('Driver::'<<center_driver).new`
+`driver = Object.const_get('Drivers::'<<center_driver).new`
 
 
 And call the parser like this:

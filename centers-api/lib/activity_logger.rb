@@ -32,7 +32,7 @@ class ActivityLogger
   def save_patient(params)
     @@connection['patients'].insert_one(params)
   end
-  
+
   def close
     @@connection.close
   end

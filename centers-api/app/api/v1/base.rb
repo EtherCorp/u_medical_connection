@@ -19,7 +19,15 @@ module V1
         body: params
       }
       conn.save_patient(patient)
-      DispatcherWorker.perform_async('patients', patient[:body])
+      request_type = 'patients'
+      puts '************************'
+      puts request_type
+      puts params[:nombre]
+      puts patient[:body]
+      puts '************************'
+
+      DispatcherWorker.perform_async(request_type, params)
+      #DispatcherWorker.perform_async(params[:token], params[:medical_center], params[:body])
       puts patient
     end
   end
