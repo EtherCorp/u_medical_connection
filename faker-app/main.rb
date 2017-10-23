@@ -4,6 +4,8 @@ faker = MedicalCenterFaker.new
 
 # Use default parameters
 faker.run
+faker.run2
+faker.run3
 
 # Use custom requests
 requests_meta = [

@@ -33,16 +33,21 @@ module V1
     end
 
     post 'professionals' do
-      profesional = {
+      professional = {
         token: params[:token],
         medical_center: params[:medical_center],
         status: 'Pending',
         queued: nil,
         body: params
       }
-      conn.save_professional(profesional)
+      conn.save_professional(professional)
       request_type= 'professionals'
       professional
+      puts '************************'
+      puts request_type
+      puts params[:nombre]
+      puts professional[:body]
+      puts '************************'
       #DispatcherWorker.perform_async(request_type, params)
     end
 
@@ -56,6 +61,11 @@ module V1
       }
       conn.save_consult(consult)
       request_type= 'consults'
+      puts '************************'
+      puts request_type
+      puts params[:nombre]
+      puts consult[:body]
+      puts '************************'
       consult
       #DispatcherWorker.perform_async(request_type, params)
     end
