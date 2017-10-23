@@ -25,12 +25,28 @@ class ActivityLogger
     @@connection['patients']
   end
 
+  def consults
+    @@connection['consults']
+  end
+
+  def professionals
+    @@connection['professionals']
+  end
+
   def save_movement(params)
     @@connection['movements'].insert_one(params)
   end
 
   def save_patient(params)
     @@connection['patients'].insert_one(params)
+  end
+
+  def save_consult(params)
+    @@connection['consults'].insert_one(params)
+  end
+
+  def save_professional(params)
+      @@connection['professionals'].insert_one(params)  
   end
 
   def close
