@@ -58,6 +58,7 @@ class MedicalCenter1
   	end
   	data_hash_patient = JSON.parse(@line)
     data[:runPaciente] = data_hash_patient['run']
+    data[:fecha] = Faker::Date.backward
     data[:razon] = Faker::Company.name
     data[:sintoma] = Faker::Company.name
     data[:observaciones] = Faker::Company.name
