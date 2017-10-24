@@ -2,7 +2,7 @@ require 'faker'
 require 'json'
 
 class MedicalCenter1
-  
+
   def self.patient
     data = {}
     data[:run] = Faker::Number.number(9)
@@ -15,10 +15,20 @@ class MedicalCenter1
   	data = {}
     data[:run] = Faker::Number.number(9)
     data[:nombre] = Faker::Name.name
+    data[:apellido] = Faker::Name.last_name 
     data[:edad] = rand(0..110)
-    #data[:nacionalidad] = Faker::Country.country
+    data[:nacionalidad] = Faker::Demographic.demonym
+    data[:job_title] = Faker::Job.title
+    data[:grant_date] = Faker::Date.backward
+    data[:granting_entity] = Faker::University.name
+    #data[:especiality] = Faker::Job.title  <-- como es una referencia de la tabla especialidad... no se que colocar
+    data[:numero_registro] = Faker::Number.number(9)
+    data[:fecha_registro]= Faker::Date.backward
     data[:especialidad] = Faker::Company.name
     data[:freelance] = Faker::Boolean.boolean
+    data[:telefono] = Faker::Number.number(9)
+    data[:email]= Faker::Internet.email(data[:nombre])
+    
     data 
   end
 

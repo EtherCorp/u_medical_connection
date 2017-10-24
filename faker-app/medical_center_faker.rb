@@ -56,7 +56,6 @@ class MedicalCenterFaker
         puts request_type
         request_body = Object.const_get(request_source).public_send(request_type)
         puts request_body.to_json  #Print the result
-        #@profesionalsFile.puts(request_body.to_json)
         post_request(request_type+'s',request_body)
       end
     end
