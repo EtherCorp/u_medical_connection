@@ -2,6 +2,7 @@ require 'faker'
 require 'json'
 
 class MedicalCenter1
+  
   def self.patient
     data = {}
     data[:run] = Faker::Number.number(9)
@@ -9,6 +10,7 @@ class MedicalCenter1
     data[:edad] = rand(0..110)
     data
   end
+
   def self.professional
   	data = {}
     data[:run] = Faker::Number.number(9)
@@ -19,6 +21,7 @@ class MedicalCenter1
     data[:freelance] = Faker::Boolean.boolean
     data 
   end
+
   def self.consult
   	data = {}
   	cont = 0

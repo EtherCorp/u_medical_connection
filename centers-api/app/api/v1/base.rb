@@ -79,7 +79,12 @@ module V1
         body: params
       }
       conn.save_movement(movement)
-      request_type= 'movements ' + params[:type]
+      request_type= 'movements'
+      puts '************************'
+      puts request_type
+      puts params[:nombre]
+      puts movement[:body]
+      puts '************************'
       movement
       #DispatcherWorker.perform_async(request_type, params)
     end 
