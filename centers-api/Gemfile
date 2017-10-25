@@ -1,25 +1,24 @@
 source 'https://rubygems.org'
-
 git_source(:github) do |repo_name|
   repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
   "https://github.com/#{repo_name}.git"
 end
 
-
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.1.4'
+
 # Use Puma as the app server
 gem 'puma', '~> 3.7'
+
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.5'
+
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 3.0'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
-
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
-
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 # gem 'rack-cors'
 
@@ -38,21 +37,20 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
-
 # Gemfile
-gem 'grape'
-gem 'grape-entity'
+gem 'grape', '~> 1.0.1'
+gem 'grape-entity', '~> 0.6.1'
 
 # Mongo for Activity Logger
-gem 'mongo'
+gem 'mongo', '~> 2.4.3'
 
 # For manage mongo from ruby
-gem 'mongoid'
+gem 'mongoid', '~> 6.2.1'
+
 # For use sidekiq how background task queue
-gem 'redis', '~> 3.0'
-gem 'sidekiq'
+gem 'redis', '~> 4.0.1'
+gem 'sidekiq', '~> 5.0.5'
 
-#HTTP gem for requests - Documentation: https://github.com/httprb/http/wiki
-gem 'http'
-
-gem 'sidekiq'
+# HTTP gem for requests - Documentation: https://github.com/httprb/http/wiki
+gem 'http', '~> 3.0.0'
+gem 'whenever', '~> 0.9.7', :require => false

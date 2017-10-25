@@ -36,7 +36,7 @@ class MedicalCenter1
   	data = {}
   	cont = 0
   	@line = nil
-  	random = Random.rand(10)
+  	random = Random.rand(2)
   	professionalsdata = File.open('professionals.json','r')
   	professionalsdata.each_line do |infile|
   		while (cont == random)
@@ -64,7 +64,12 @@ class MedicalCenter1
     data[:observaciones] = Faker::Company.name
     data
   end	
-
+  def self.movement
+    data = {}
+    data[:tipo] = rand(0..6)   
+    #data[:ID_consulta] = rand(0..6)
+    data
+  end
 
 
 end

@@ -48,7 +48,7 @@ module V1
       puts params[:nombre]
       puts professional[:body]
       puts '************************'
-      #DispatcherWorker.perform_async(request_type, params)
+      DispatcherWorker.perform_async(request_type, params)
     end
 
     post 'consults' do
@@ -67,7 +67,7 @@ module V1
       puts consult[:body]
       puts '************************'
       consult
-      #DispatcherWorker.perform_async(request_type, params)
+      DispatcherWorker.perform_async(request_type, params)
     end
 
     post 'movements' do

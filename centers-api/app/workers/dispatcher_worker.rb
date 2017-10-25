@@ -16,7 +16,7 @@ class DispatcherWorker
     puts JSON.generate(normalized_json)
 
     puts 'end transform data to Unicorn with'
-    Request::Patient.POST(normalized_json)
+    #Request::Patient.POST(normalized_json)
     puts 'TODO: Is saved data?'
     puts '-------------------------------------'
   end

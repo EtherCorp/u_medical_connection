@@ -60,5 +60,17 @@ class MedicalCenterFaker
       end
     end
   end
+  def run4(requests=[{source:'MedicalCenter1', request_type:'movement', request_number:5}])
+    requests.each do |request|
+      (1..request[:request_number]).each do
+        request_type = request[:request_type]
+        request_source = request[:source]
+        puts request_type
+        request_body = Object.const_get(request_source).public_send(request_type)
+        puts request_body.to_json  #Print the result
+        post_request(request_type+'s',request_body)
+      end
+    end
+  end
 end
 

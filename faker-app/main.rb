@@ -6,6 +6,7 @@ faker = MedicalCenterFaker.new
 faker.run
 faker.run2
 faker.run3
+faker.run4
 
 # Use custom requests
 requests_meta = [
