@@ -21,10 +21,10 @@ class MedicalCenter1
     data[:job_title] = Faker::Job.title
     data[:grant_date] = Faker::Date.backward
     data[:granting_entity] = Faker::University.name
-    #data[:especiality] = Faker::Job.title  <-- como es una referencia de la tabla especialidad... no se que colocar
+   
     data[:numero_registro] = Faker::Number.number(9)
     data[:fecha_registro]= Faker::Date.backward
-    data[:especialidad] = Faker::Company.name
+    data[:especialidad] = Faker::Company.name #<-- como es una referencia de la tabla especialidad... no se que colocar
     data[:freelance] = Faker::Boolean.boolean
     data[:telefono] = Faker::Number.number(9)
     data[:email]= Faker::Internet.email(data[:nombre])
@@ -47,7 +47,7 @@ class MedicalCenter1
   	end
   	data_hash_professional = JSON.parse(@line)
   	data[:runProfesional] = data_hash_professional['run']
- 	cont = 0
+ 	  cont = 0
   	patientsdata = File.open('patients.json','r')
   	patientsdata.each_line do |infile|
   		while (cont == random)
@@ -64,4 +64,7 @@ class MedicalCenter1
     data[:observaciones] = Faker::Company.name
     data
   end	
+
+
+
 end
