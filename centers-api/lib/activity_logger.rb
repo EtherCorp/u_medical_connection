@@ -36,6 +36,14 @@ class ActivityLogger
   def close
     @@connection.close
   end
+
+  def pending_request
+    @@connection['request_patients'].find(status: 'Pending')
+  end
+
+  def save_request_patient(params)
+    @@connection['request_patients'].insert_one(params)
+  end
 end
 
 if __FILE__ == $0

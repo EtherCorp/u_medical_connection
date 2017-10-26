@@ -18,7 +18,19 @@ module V1
         queued: nil,
         body: params
       }
+      request_patient = {
+        request_type: 'patients',
+        status: 'Pending',
+        patient: {
+          token: params[:token],
+          medical_center: params[:medical_center],
+          status: 'Pending',
+          queued: nil,
+          body: params
+        }
+      }
       conn.save_patient(patient)
+      conn.save_request_patient(request_patient)
       request_type = 'patients'
       puts '************************'
       puts request_type
