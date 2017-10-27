@@ -21,15 +21,9 @@ module V1
       }
       conn.save_patient(patient)
       request_type = 'patients'
-      puts '************************'
-      puts request_type
-      puts params[:nombre]
-      puts patient[:body]
-      puts '************************'
-
       DispatcherWorker.perform_async(request_type, params)
       #DispatcherWorker.perform_async(params[:token], params[:medical_center], params[:body])
-      puts patient
+      patient
     end
 
     post 'professionals' do
@@ -43,11 +37,6 @@ module V1
       conn.save_professional(professional)
       request_type= 'professionals'
       professional
-      puts '************************'
-      puts request_type
-      puts params[:nombre]
-      puts professional[:body]
-      puts '************************'
       DispatcherWorker.perform_async(request_type, params)
     end
 
@@ -61,11 +50,6 @@ module V1
       }
       conn.save_consult(consult)
       request_type= 'consults'
-      puts '************************'
-      puts request_type
-      puts params[:nombre]
-      puts consult[:body]
-      puts '************************'
       consult
       DispatcherWorker.perform_async(request_type, params)
     end
@@ -80,11 +64,6 @@ module V1
       }
       conn.save_movement(movement)
       request_type= 'movements'
-      puts '************************'
-      puts request_type
-      puts params[:nombre]
-      puts movement[:body]
-      puts '************************'
       movement
       DispatcherWorker.perform_async(request_type, params)
     end 
