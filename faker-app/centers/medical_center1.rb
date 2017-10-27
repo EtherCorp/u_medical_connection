@@ -28,7 +28,6 @@ class MedicalCenter1
     data[:freelance] = Faker::Boolean.boolean
     data[:telefono] = Faker::Number.number(9)
     data[:email]= Faker::Internet.email(data[:nombre])
-    
     data 
   end
 
@@ -66,8 +65,33 @@ class MedicalCenter1
   end	
   def self.movement
     data = {}
-    data[:tipo] = rand(0..6)   
-    #data[:ID_consulta] = rand(0..6)
+    movimientos = ["Exam","Prescription","Diagnostic","License","Procedure","Other"]
+    data[:tipo] = movimientos[rand(0..5)]
+    cont = 0
+    @line = nil
+    random = Random.rand(2)
+    professionalsdata = File.open('professionals.json','r')
+    professionalsdata.each_line do |infile|
+      while (cont == random)
+        @line = infile
+        break
+      end
+      cont = cont + 1
+    end
+    data_hash_professional = JSON.parse(@line)
+    data[:runProfesional] = data_hash_professional['run']
+    cont = 0
+    patientsdata = File.open('patients.json','r')
+    patientsdata.each_line do |infile|
+      while (cont == random)
+        @line = infile
+        break
+      end
+      cont = cont + 1
+    end
+    data_hash_patient = JSON.parse(@line)
+    data[:runPaciente] = data_hash_patient['run']
+    data[:detalles] = ["detalle1 : detalle1", "detalle2 : detalle2"]
     data
   end
 

@@ -46,6 +46,14 @@ module Drivers
     end
 
     def parse_movements(request)
+      parsed = {}
+      parsed[:type] = request['tipo']
+      rut_string = request['runPaciente']
+      parsed[:patient_rut] = rut_string[0..-2] + '-' + rut_string[-1]
+      rut_string = request['runProfesional']
+      parsed[:professional_rut] = rut_string[0..-2] + '-' + rut_string[-1]
+      parsed[:detail] = request['detalles']
+      parsed
     end
 
     def parse_consults_with_movements(request)

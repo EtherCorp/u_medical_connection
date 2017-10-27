@@ -86,7 +86,7 @@ module V1
       puts movement[:body]
       puts '************************'
       movement
-      #DispatcherWorker.perform_async(request_type, params)
+      DispatcherWorker.perform_async(request_type, params)
     end 
   end
 end
