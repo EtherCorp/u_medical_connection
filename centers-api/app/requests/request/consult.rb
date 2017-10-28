@@ -1,20 +1,22 @@
+# frozen_string_literal: true
+
 module Request
   class Consult < Request::Base
-    @entity = "consults"
+    @entity = 'consults'
 
-    def self.GET_movement(id)
-      dir = @@url + @entity + "/" + id.to_s + "/" + "movements"
-      req = HTTP.get(dir)
+    def self.get_movement(id)
+      dir = "#{self.url}/#{id}/movements"
+      HTTP.get(dir)
     end
 
-    def self.POST_movement_details(id, movement_id, params)
-      dir = @@url + @entity + "/" + id.to_s + "/" + "movements/" + movement_id.to_s + "/details"
-      req = HTTP.post(dir, :json => params)
+    def self.post_movement_details(id, movement_id, params)
+      dir = "#{self.url}/#{id}/movements/#{movement_id}/details"
+      HTTP.post(dir, json: params)
     end
 
-    def self.POST_movement_documents(id, movement_id, params)
-      dir = @@url + @entity + "/" + id.to_s + "/" + "movements/" + movement_id.to_s + "/documents"
-      req = HTTP.post(dir, :json => params)
+    def self.post_movement_documents(id, movement_id, params)
+      dir = "#{self.url}/#{id}/movements/#{movement_id}/documents"
+      HTTP.post(dir, json: params)
     end
   end
 end

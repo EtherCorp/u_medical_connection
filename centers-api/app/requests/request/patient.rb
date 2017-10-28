@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 module Request
   class Patient < Request::Base
-    @entity = "patients"
+    @entity = 'patients'
 
-    def self.GET_consults(id)
-      dir = @@url + @entity + "/" + id.to_s + "/consults"
-      req = HTTP.get(dir)
+    def self.get_consults(id)
+      dir = "#{self.url}/#{id}/consults"
+      HTTP.get(dir)
     end
   end
 end

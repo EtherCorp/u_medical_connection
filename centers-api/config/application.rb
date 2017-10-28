@@ -37,5 +37,9 @@ module CentersApi
     #Requests router
     config.paths.add File.join('app', 'requests'), glob: File.join('**', '*.rb')
     config.autoload_paths += Dir[Rails.root.join('app', 'requests', '*')]
+
+    config.autoload_paths += Dir["#{config.root}/lib/**/"]
+
+    puts config.root
   end
 end

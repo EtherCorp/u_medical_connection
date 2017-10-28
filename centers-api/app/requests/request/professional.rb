@@ -1,15 +1,17 @@
+# frozen_string_literal: true
+
 module Request
   class Professional < Request::Base
-    @entity = "professionals"
+    @entity = 'professionals'
 
-    def self.GET_consults(id)
-      dir = @@url + @entity + "/" + id.to_s + "/consults"
-      req = HTTP.get(dir)
+    def self.get_consults(id)
+      dir = "#{self.url}/#{id}/consults"
+      HTTP.get(dir)
     end
 
-    def self.GET_medical_centers(id)
-      dir = @@url + @entity + "/" + id.to_s + "/medical_centers"
-      req = HTTP.get(dir)
+    def self.get_medical_centers(id)
+      dir = "#{self.url}/#{id}/medical_centers"
+      HTTP.get(dir)
     end
   end
 end

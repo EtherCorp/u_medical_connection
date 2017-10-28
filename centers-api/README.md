@@ -1,24 +1,26 @@
-# README
+# Medical Connection 
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Set up servers
 
-Things you may want to cover:
+### Redis server
 
-* Ruby version
+- Install redis
+    - For Ubuntu: `sudo apt-get -y install redis-server`
+- Start server: `systemctl start redis`
 
-* System dependencies
+More info: [Quickstart](https://redis.io/topics/quickstart), [Redis queue commands](https://redis.io/commands/lpush)
 
-* Configuration
+### MongoDB
 
-* Database creation
+- Install Mongo: [Instructions](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/#install-mongodb-community-edition)
+- Start server: 
+    - For Ubuntu: `sudo mongod`
+    - As a service: `systemctl start mongodb`
+    
+### Sidekiq
 
-* Database initialization
+- Endpoint access: `localhost:3000/sidekiq`
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## Run Unicorn server
+- Run Sidekiq `bundle exec sidekiq`
+- Run Rails `bundle exec rails server -p 3001`
