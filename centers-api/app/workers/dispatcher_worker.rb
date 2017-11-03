@@ -10,11 +10,6 @@ class DispatcherWorker
     center_driver = 'MedicalCenter1' # result to hash validation for center
     driver = Object.const_get('Drivers::' + center_driver).new
     normalized_json = driver.parse(request_type, json_data)
-    Request::Patient.POST(normalized_json)
-
-    hash['status'] = 'Done' # update Done state validating request response
-    hash['_id'] = BSON::ObjectId.from_string(hash['_id']['$oid'])
-    mongo_connection = MongoConnection.new
-    mongo_connection.update_request(hash)
+    RequestAck.post_patient(normalized_json, hash)
   end
 end
