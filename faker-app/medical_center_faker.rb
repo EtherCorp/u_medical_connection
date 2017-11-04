@@ -20,7 +20,7 @@ class MedicalCenterFaker
     puts response
   end
 
-  def run(requests=[{source:'MedicalCenter1', request_type:'patient', request_number:100}])
+  def run(requests=[{source:'MedicalCenter1', request_type:'patient', request_number:5}])
     requests.each do |request|
       (1..request[:request_number]).each do
         request_type = request[:request_type]
