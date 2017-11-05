@@ -54,3 +54,4 @@ gem 'sidekiq', '~> 5.0.5'
 # HTTP gem for requests - Documentation: https://github.com/httprb/http/wiki
 gem 'http', '~> 3.0.0'
 gem 'whenever', '~> 0.9.7', :require => false
+
