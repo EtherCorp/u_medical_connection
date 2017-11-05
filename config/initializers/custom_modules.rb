@@ -1,4 +1,4 @@
 require 'activity_logger'
-require 'drivers/base'
+require 'drivers/base_driver'
 require 'drivers/centers/medical_center1'
 Dir['request/*.rb'].each { |file| require file }

@@ -1,7 +1,7 @@
 module Drivers
   # Driver for Medical Center 1
   # This parse the request to a normalized json-like hash
-  class MedicalCenter1 < Base
+  class MedicalCenter1 < BaseDriver
     def parse_patients(request)
       # request = JSON.parse(request)
       parsed = {}
@@ -35,6 +35,8 @@ module Drivers
     def parse_consults(request)
       parsed = {}
       rut_string = request['runPaciente']
+      puts rut_string
+      puts request.inspect
       parsed[:patient_rut] = rut_string[0..-2] + '-' + rut_string[-1]
       rut_string = request['runProfesional']
       parsed[:professional_rut] = rut_string[0..-2] + '-' + rut_string[-1]
@@ -55,8 +57,10 @@ module Drivers
       parsed[:detail] = request['detalles']
       parsed
     end
-
-    def parse_consults_with_movements(request)
+    
+    def parse_unknown(request)
+      parsed = {}
+      parsed
     end
   end
 end

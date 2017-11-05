@@ -1,56 +1,31 @@
 require 'mongo'
-# lib of MongoDB conections
+
 class ActivityLogger
+  @@config = {
+    host: '127.0.0.1',
+    port: '27017',
+    db: 'system_logs'
+  }
+  
   @@connection = nil
-  def initialize
-    # set logger level to FATAL (only show serious errors)
-    Mongo::Logger.logger.level = ::Logger::FATAL
-    # set up a connection to the mongod instance which is running locally,
-    # on the default port 27017
+  
+  def self.mongo
     if @@connection.nil?
-      @@connection = Mongo::Client.new(['127.0.0.1:27017'], database: 'test')
+      puts 'creando logger'
+      @@connection = @@connection ||= Mongo::Client.new(
+      ["#{@@config[:host]}:#{@@config[:port]}"],
+      database: @@config[:db]
+      )
     end
+#    @@connection ||= Mongo::Client.new(
+#      ["#{@@config[:host]}:#{@@config[:port]}"],
+#      database: @@config[:db]
+#    )
+    @@connection[:logs]
   end
-
-  def connection
-    @@connection
-  end
-
-  # get connection to one collection
-  def movements
-    @@connection['movements']
-  end
-
-  def patients
-    @@connection['patients']
-  end
-
-  def consults
-    @@connection['consults']
-  end
-
-  def professionals
-    @@connection['professionals']
-  end
-
-  def save_movement(params)
-    @@connection['movements'].insert_one(params)
-  end
-
-  def save_patient(params)
-    @@connection['patients'].insert_one(params)
-  end
-
-  def save_consult(params)
-    @@connection['consults'].insert_one(params)
-  end
-
-  def save_professional(params)
-      @@connection['professionals'].insert_one(params)  
-  end
-
-  def close
-    @@connection.close
+  
+  def self.log(object)
+    mongo.insert_one(object)
   end
 end
 
