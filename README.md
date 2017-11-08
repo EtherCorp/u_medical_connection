@@ -1,16 +1,18 @@
-# u_medical_connection
+# Medical Connection server for Unicorn
+
 ## How to set up project 
-- install redis: sudo apt-get -y install redis-server
-- check server status: sudo service redis-server status
-- install mongodb
-- Create db dir in / path: 
-  - sudo mkdir data
-  - sudo cd data
-  - sudo mkdir db
+- Install Redis and MongoDB
+  - On Ubuntu: `sudo apt-get install redis-server mongodb`
+- Configure your settings in `/config/` folder
+  - We provide a default configuration for al the necessary files 
+    just remove the `.default` extension of the files `cable.yml`, `mongoid.yml`, 
+    `schedule.yml` and `secrets.yml`
 
 ## How to run
-- start server: redis-server
-- start mongodb: mongod
-- bundle exec sidekiq
-- start project: u_medical_connection/center-api rails s -p 3001
-- start faker: u_medical_connection/faker-app ruby main.rb
+- Start mongo and redis service
+  - `systemctl start redis`
+  - `systemctl start mongodb`
+- Run Sidekiq
+  - `bundle exec sidekiq`
+- Start Medical Connection server 
+  - `bundle exec rails server -p 3001`
