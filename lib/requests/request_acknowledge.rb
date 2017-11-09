@@ -8,7 +8,6 @@ module Requests
   
       if request['request_type'] == 'patients'
         res = requester.post('patients', normalized_request)
-        puts res.code
         handler_acknowledge(res.code, request)
       end
     end
