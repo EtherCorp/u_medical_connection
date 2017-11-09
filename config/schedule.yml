@@ -1,5 +1,0 @@
-generate_random_user:
-  cron: "* * * * *"
-  class: "CronJob"
-  queue: default
-  active_job: true
