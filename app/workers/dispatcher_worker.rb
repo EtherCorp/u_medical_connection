@@ -13,6 +13,6 @@ class DispatcherWorker
     normalized_request = driver.parse(request['request_type'], request['body'])
     
     # Send request to Unicorn
-    RequestAcknowledge.post(request, normalized_request)
+    Requests::RequestAcknowledge.post(request, normalized_request)
   end
 end
