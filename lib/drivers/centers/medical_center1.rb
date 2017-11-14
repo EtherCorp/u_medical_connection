@@ -2,33 +2,34 @@ module Drivers
   # Driver for Medical Center 1
   # This parse the request to a normalized json-like hash
   class MedicalCenter1 < BaseDriver
+    def professionals_key_converter(request)
+    { 'speciality' => request['especialidad'],
+      'registration_number' => request['numero_registro'],
+      'registration_date' => request['fecha_registro'],  
+      'rut' => request['run'][0..-2] + '-' + request['run'][-1],
+      'name' => request['nombre'],
+      'last_name' => request['apellido'],
+      'age' => request['edad'],
+      'nationality' => request['nacionalidad'],
+      'phone' => request['telefono']
+    }
+    end
+
     def parse_patients(request)
-      parsed = {}
-      rut_string = request['run']
-      parsed[:rut] = rut_string[0..-2] + '-' + rut_string[-1]
-      parsed[:name], parsed[:last_name] = request['nombre'].split(' ', 2)
-      parsed[:age] = request['edad']
-      parsed
+      nombre = request['nombre'].split(' ', 2)
+      { 'rut' => request['run'][0..-2] + '-' + request['run'][-1],
+        'name' => nombre[0],
+        'last_name' => nombre[1], 
+        'age' => request['edad']}.to_json
     end
 
     def parse_professionals(request)
-      parsed = {}
-      rut_string = request['run']
-      parsed[:rut] = rut_string[0..-2] + '-' + rut_string[-1]
-      parsed[:name] = request['nombre']
-      parsed[:last_name] = request['apellido']
-      parsed[:age] = request['edad']
-      parsed[:nationality] = request['nacionalidad']
-      parsed[:job_title] = request['job_title'] 
-      parsed[:grant_date] = request['grant_date']
-      parsed[:granting_entity] = request['granting_entity']
-      parsed[:speciality] = request['especialidad']
-      parsed[:registration_number] = request['numero_registro']
-      parsed[:registration_date] = request['fecha_registro']
-      parsed[:freelance] = request['freelance']
-      parsed[:email] = request['email']
-      parsed[:phone] = request['telefono']
-      parsed
+      return {}.to_json unless request.empty?
+      request.merge(key_converter(request)).slice!(
+        :especialidad, :numero_registro,
+        :fecha_registro, :run, :nombre,
+        :apellido, :edad, :nacionalidad,
+        :telefono).to_json
     end
 
     def parse_consults(request)

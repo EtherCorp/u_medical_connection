@@ -8,5 +8,7 @@ module Drivers
       method_name = "parse_#{request_type}"
       public_send(method_name, request)
     end
+    #Método que deben tener todos los drivers. Permite reciclar JSON de consulta
+    def professionals_key_converter(request) end
   end
 end
