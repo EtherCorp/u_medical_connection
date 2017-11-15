@@ -3,6 +3,7 @@ module Drivers
   # This parse the request to a normalized json-like hash
   class MedicalCenter1 < BaseDriver
     def professionals_key_converter(request)
+      return {}.to_json unless request.empty?
     { 'speciality' => request['especialidad'],
       'registration_number' => request['numero_registro'],
       'registration_date' => request['fecha_registro'],  
@@ -16,6 +17,7 @@ module Drivers
     end
 
     def parse_patients(request)
+      return {}.to_json unless request.empty?
       nombre = request['nombre'].split(' ', 2)
       { 'rut' => request['run'][0..-2] + '-' + request['run'][-1],
         'name' => nombre[0],
@@ -33,34 +35,24 @@ module Drivers
     end
 
     def parse_consults(request)
-      parsed = {}
-      rut_string = request['runPaciente']
-      puts rut_string
-      puts request.inspect
-      parsed[:patient_rut] = rut_string[0..-2] + '-' + rut_string[-1]
-      rut_string = request['runProfesional']
-      parsed[:professional_rut] = rut_string[0..-2] + '-' + rut_string[-1]
-      parsed[:date] = request['fecha']
-      parsed[:reason] = request['razon']
-      parsed[:symptoms] = request['sintoma']
-      parsed[:observations] = request['observaciones']
-      parsed
+      return {}.to_json unless request.empty?
+      {
+      'patient_rut' => request['runPaciente'][0..-2] + '-' + request['runPaciente'][-1],
+      'professional_rut' => request['runProfesional'][0..-2] + '-' + request['runProfesional'][-1],
+      'date' => request['fecha'],
+      'reason' => request['razon'],
+      'symptoms' => request['sintoma'],
+      'observations' = request['observaciones']}.to_json
     end
 
     def parse_movements(request)
-      parsed = {}
-      parsed[:type] = request['tipo']
-      rut_string = request['runPaciente']
-      parsed[:patient_rut] = rut_string[0..-2] + '-' + rut_string[-1]
-      rut_string = request['runProfesional']
-      parsed[:professional_rut] = rut_string[0..-2] + '-' + rut_string[-1]
-      parsed[:detail] = request['detalles']
-      parsed
+      return {}.to_json unless request.empty?
+      {
+      'type' => request['tipo'],
+      'patient_rut' => request['runPaciente'][0..-2] + '-' + request['runPaciente'][-1],
+      'professional_rut' => request['runProfesional'][0..-2] + '-' + request['runProfesional'][-1],
+      'detail' =>request['detalles']}.to_json
     end
     
-    def parse_unknown(request)
-      parsed = {}
-      parsed
-    end
   end
 end
