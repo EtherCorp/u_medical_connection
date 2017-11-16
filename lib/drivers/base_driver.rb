@@ -8,16 +8,34 @@ module Drivers
       method_name = "parse_#{request_type}"
       public_send(method_name, request)
     end
-    #Método que deben tener todos los drivers. Permite reciclar JSON de consulta
+
+    # Método que deben tener todos los drivers. Permite reciclar JSON de consulta
     def professionals_key_converter(request) end
+
     def parse_patients(request) end
+
     def parse_professionals(request) end
+
     def parse_consults(request) end
+
     def parse_movements(request) end
-    def parse_unknown(request)
+
+    def parse_unknown(_request)
       {}.to_json
     end
-      
+
+    def check_request(request, attr_list)
+      return false unless check_param(request)
+      return false unless check_param(attr_list)
+      attr_list.each do |attribute|
+        return false unless request.key?(attribute)
+      end
+      true
+    end
+
+    def check_param(attribute)
+      return false if attribute.nil? || attribute.empty?
+      attribute
     end
   end
 end
