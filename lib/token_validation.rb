@@ -2,11 +2,9 @@ class TokenValidation
   def initialize; end
 
   def validate_token(headers)
-    begin
-      response = RequestUtils.get('connection_tokens/token', headers)
-    rescue
-      response = nil
-    end
+    puts headers['Medical-Center-Token']
+    requester = Requests::RequestUtils.new
+    response = requester.get('connection_tokens/token', headers)
     response
   end
 end
