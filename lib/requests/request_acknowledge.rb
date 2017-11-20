@@ -2,6 +2,7 @@ module Requests
   # For handler request ack
   class RequestAcknowledge
     require 'mongo_connection'
+    require 'activity_logger'
   
     def self.post(request, normalized_request)
       requester = RequestUtils.new
@@ -9,6 +10,7 @@ module Requests
       if request['request_type'] == 'patients'
         res = requester.post('patients', normalized_request)
         handler_acknowledge(res.code, request)
+        ActivityLogger.logto('log_patients',request)
       end
     end
   

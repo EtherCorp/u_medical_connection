@@ -27,6 +27,22 @@ class ActivityLogger
   def self.log(object)
     mongo.insert_one(object)
   end
+
+  def self.logcollection(collection)
+    if @@connection.nil?
+      puts 'creando logger'
+      @@connection = @@connection ||= Mongo::Client.new(
+      ["#{@@config[:host]}:#{@@config[:port]}"],
+      database: @@config[:db]
+      )
+    end
+    @@connection[collection]
+  end
+
+  def self.logto(collection, object)
+    logcollection(collection).insert_one(object)
+  end
+
 end
 
 if __FILE__ == $0
