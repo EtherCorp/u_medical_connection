@@ -30,6 +30,9 @@ module CentersApi
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
 
+    #Time Zone
+    config.time_zone = 'Santiago'
+
     # Grape router
     config.paths.add File.join('app', 'api'), glob: File.join('**', '*.rb')
     config.autoload_paths += Dir[Rails.root.join('app', 'api', '*')]
