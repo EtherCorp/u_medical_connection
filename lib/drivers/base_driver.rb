@@ -18,7 +18,12 @@ module Drivers
 
     def parse_consults(request) end
 
-    def parse_movements(request) end
+    def parse_movements(request)
+      keys = %w[tipo runPaciente runProfesional detalles]
+      request_type = check_movement(request, keys)
+      method_name = "parse_#{request_type}s"
+      public_send(method_name, request)
+    end
 
     def parse_unknown(_request)
       {}.to_json
@@ -37,5 +42,7 @@ module Drivers
       return false if attribute.nil? || attribute.empty?
       attribute
     end
+
+    
   end
 end

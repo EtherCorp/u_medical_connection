@@ -25,12 +25,12 @@ module Drivers
       return {}.to_json unless check_request(request, %w[nombre run edad])
       nombre = request['nombre'].split(' ', 2)
       { 'rut' => request['run'][0..-2] + '-' + request['run'][-1],
-        'name' => nombre[0],
         'last_name' => nombre[1],
+        'name' => nombre[0],
         'age' => request['edad'] }.to_json
     end
 
-    def parse_professionals(request)
+    def parse_professional(request)
       request.merge(key_converter(request)).slice!(
         :especialidad, :numero_registro,
         :fecha_registro, :run, :nombre,
@@ -40,7 +40,7 @@ module Drivers
 
     def parse_consults(request)
       keys = %w[runPaciente runProfesional fecha razon sintoma observaciones]
-      return {}.to_json unless check_request(request  , keys)
+      return {}.to_json unless check_request(request, keys)
       { 'patient_rut' => request['runPaciente'][0..-2] + '-' +
         request['runPaciente'][-1],
         'professional_rut' => request['runProfesional'][0..-2] + '-' +
@@ -48,22 +48,60 @@ module Drivers
         'date' => request['fecha'],
         'reason' => request['razon'],
         'symptoms' => request['sintoma'],
-        'observations' => request['observaciones']}.to_json
+        'observations' => request['observaciones'] }.to_json
     end
 
-    def parse_movements(request)
-      keys = %w[tipo runPaciente runProfesional detalles]
-      return {}.to_json unless check_request(request, keys)
-      { 'type' => request['tipo'],
-        'patient_rut' => request['runPaciente'][0..-2] + '-' +
-          request['runPaciente'][-1],
-        'professional_rut' => request['runProfesional'][0..-2] + '-' +
-          request['runProfesional'][-1],
-        'detail' => request['detalles']}.to_json
+    def check_movement(request, attr_required)
+      attr_required.each do |atribute|
+        return 'unknown' unless request.include?(atribute)
+        return 'unknown' if request[atribute].nil?
+      end
+      request['tipo'].downcase!
     end
-    
-    def parse_exam(request)
-      return {}.to_json unless check_request()
+
+    def parse_exams(request)
+      {
+        'type' => 'exam',
+        'patient' => request['runPaciente'],
+        'professional' => request['runProfesional'],
+        'details' => request['detalles']
+      }
+    end
+
+    def parse_diagnostics(request)
+      {
+        'type' => 'diagnostic',
+        'patient' => request['runPaciente'],
+        'professional' => request['runProfesional'],
+        'details' => request['detalles']
+      }
+    end
+
+    def parse_prescriptions(request)
+      {
+        'type' => 'prescription',
+        'patient' => request['runPaciente'],
+        'professional' => request['runProfesional'],
+        'details' => request['detalles']
+      }
+    end
+
+    def parse_licenses(request)
+      {
+        'type' => 'license',
+        'patient' => request['runPaciente'],
+        'professional' => request['runProfesional'],
+        'details' => request['detalles']
+      }
+    end
+
+    def parse_procedures(request)
+      {
+        'type' => 'procedures',
+        'patient' => request['runPaciente'],
+        'professional' => request['runProfesional'],
+        'details' => request['detalles']
+      }
     end
   end
 end
