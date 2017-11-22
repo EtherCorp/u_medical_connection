@@ -6,10 +6,8 @@ module V1
     post 'patients' do
       token = headers['Medical-Center-Token']
       request_data = params
-      return ActivityLogger.log(type: 'error', message: 'No token provided') unless token
-      token_verified = TokenValidation.new
-      token_v = token_verified.validate_token(headers)
-      return ActivityLogger.log(type: 'error', message: 'Invalid Token') unless token_v.code == '200'
+      unicorn_response = TokenValidation.validate_token(headers)
+      return ActivityLogger.log(type: 'error', message: 'Invalid Token') unless unicorn_response.code == '200'
       request = {
         token: token,
         request_type: 'patients',
