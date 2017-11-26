@@ -15,9 +15,8 @@ module Drivers
     def parse_consults(request) end
     def parse_movements(request) end
     def parse_unknown(request)
-      {}.to_json
+      {}
     end
-      
-    end
+    
   end
 end
