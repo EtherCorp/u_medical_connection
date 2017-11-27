@@ -4,6 +4,7 @@ module Drivers
   class MedicalCenter1 < BaseDriver
 
     def professionals_key_converter(request)  
+      puts request
       return {} if request.empty?
     { #'speciality' => request['especialidad'],
       'registration_number' => request['numero_registro'],
@@ -32,9 +33,11 @@ module Drivers
 
     def parse_professionals(request)
       return {} if request.empty?
-      request.merge(professionals_key_converter(request)).slice('id', 'name', 'last_name', 'rut', 'age', 
+      a = request.merge(professionals_key_converter(request)).slice('id', 'name', 'last_name', 'rut', 'age', 
         'nationality', 'registration_date', 'freelance', 
         'job_title', 'grant_date', 'granting_entity', 'email', 'speciality_id', 'registration_number') 
+      puts a
+      a
     end
 
     def parse_consults(request)
