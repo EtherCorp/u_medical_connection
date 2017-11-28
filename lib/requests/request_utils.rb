@@ -11,7 +11,6 @@ module Requests
   
     def post(endpoint, body, headers = {})
       headers['Content-Type'] = 'application/json'
-      #headers['Medical-Center-token'] = 'eyJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl9pZCI6MX0.YBoHU254D5ts-jG3Pxd7s0i8B8Qb-Ju7OSR7k6IN4pE'
       http = Net::HTTP.new(uri.host, uri.port)
       request = Net::HTTP::Post.new(uri.path + endpoint, headers)
       request.body = body.to_json

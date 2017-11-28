@@ -4,12 +4,10 @@ module V1
   class Patients < Grape::API
     desc 'Patients request'
     post 'patients' do
-
       token = headers['Medical-Center-Token']
       request_data = params
       unicorn_response = TokenValidation.validate_token(headers)
-      #puts unicorn_response
-      #return ActivityLogger.log(type: 'error', message: 'Invalid Token') unless unicorn_response.code == '200'
+      return ActivityLogger.log(type: 'error', message: 'Invalid Token') unless unicorn_response.code == '200'
       request = {
         token: token,
         request_type: 'patients',
