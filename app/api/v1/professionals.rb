@@ -15,10 +15,10 @@ module V1
         queued: nil,
         body: request_data
       }
-
+  
       mongo_connection = MongoConnection.new
       persisted_request = mongo_connection.save_request(request)
-
+  
       DispatcherWorker.perform_async(persisted_request)
     end
   end

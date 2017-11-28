@@ -2,53 +2,62 @@ module Drivers
   # Driver for Medical Center 1
   # This parse the request to a normalized json-like hash
   class MedicalCenter1 < BaseDriver
-    def professionals_data_parser(request)
-      { 'speciality' => request['especialidad'],
-        'registration_number' => request['numero_registro'],
-        'registration_date' => request['fecha_registro'],
-        'rut' => request['run'][0..-2] + '-' + request['run'][-1],
-        'name' => request['nombre'],
-        'last_name' => request['apellido'],
-        'age' => request['edad'],
-        'nationality' => request['nacionalidad'],
-        'phone' => request['telefono'] }
-    end
 
-    def professionals_key_converter(request)
-      params = %w[especialidad numero_registro fecha_registro run nombre
-                  apellido edad nacionalidad telefono]
-      return {}.to_json unless check_request(request, params)
-      professionals_data_parser(request).to_json()
+    def professionals_key_converter(request)  
+      puts request
+      return {} if request.empty?
+    { #'speciality' => request['especialidad'],
+      'registration_number' => request['numero_registro'],
+      'registration_date' => request['fecha_registro'],  
+      'rut' => request['run'][0..-2] + '-' + request['run'][-1],
+      'name' => request['nombre'],
+      'last_name' => request['apellido'],
+      'age' => request['edad'],
+      'nationality' => request['nacionalidad'],
+      'phone' => request['telefono'],
+      'speciality_id' =>request['especialidad']
+      #'speciality_id' => 2, #DUMMY SPECIALITY
+    }
     end
 
     def parse_patients(request)
-      return {}.to_json unless check_request(request, %w[nombre run edad])
+      return {} unless check_request(request, %w[nombre run edad])
       nombre = request['nombre'].split(' ', 2)
-      { 'rut' => request['run'][0..-2] + '-' + request['run'][-1],
-        'last_name' => nombre[1],
+      a = { 'rut' => request['run'][0..-2] + '-' + request['run'][-1],
         'name' => nombre[0],
-        'age' => request['edad'] }.to_json
+        'last_name' => nombre[1], 
+        'age' => request['edad']}
+      puts a
+      a
     end
 
-    def parse_professional(request)
-      request.merge(key_converter(request)).slice!(
-        :especialidad, :numero_registro,
-        :fecha_registro, :run, :nombre,
-        :apellido, :edad, :nacionalidad,
-        :telefono).to_json
+    def parse_professionals(request)
+      return {} if request.empty?
+      a = request.merge(professionals_key_converter(request)).slice('id', 'name', 'last_name', 'rut', 'age', 
+        'nationality', 'registration_date', 'freelance', 
+        'job_title', 'grant_date', 'granting_entity', 'email', 'speciality_id', 'registration_number') 
+      puts a
+      a
     end
 
     def parse_consults(request)
-      keys = %w[runPaciente runProfesional fecha razon sintoma observaciones]
-      return {}.to_json unless check_request(request, keys)
-      { 'patient_rut' => request['runPaciente'][0..-2] + '-' +
-        request['runPaciente'][-1],
-        'professional_rut' => request['runProfesional'][0..-2] + '-' +
-          request['runProfesional'][-1],
-        'date' => request['fecha'],
-        'reason' => request['razon'],
-        'symptoms' => request['sintoma'],
-        'observations' => request['observaciones'] }.to_json
+      return {} if request.empty?
+      {
+      'patient_rut' => request['runPaciente'][0..-2] + '-' + request['runPaciente'][-1],
+      'professional_rut' => request['runProfesional'][0..-2] + '-' + request['runProfesional'][-1],
+      'date' => request['fecha'],
+      'reason' => request['razon'],
+      'symptoms' => request['sintoma'],
+      'observations' => request['observaciones']}
+    end
+
+    def parse_movements(request)
+      return {} if request.empty?
+      {
+      'type' => request['tipo'],
+      'patient_rut' => request['runPaciente'][0..-2] + '-' + request['runPaciente'][-1],
+      'professional_rut' => request['runProfesional'][0..-2] + '-' + request['runProfesional'][-1],
+      'detail' =>request['detalles']}
     end
 
     def check_movement(request, attr_required)

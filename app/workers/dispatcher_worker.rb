@@ -8,7 +8,6 @@ class DispatcherWorker
     # Determine driver
     center_driver = 'MedicalCenter1' # getDriverByToken(json_data[:token]) result to token validation for center
     driver = Object.const_get('Drivers::' + center_driver).new
-    
     # Parse request
     normalized_request = driver.parse(request['request_type'], request['body'])
     

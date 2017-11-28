@@ -26,7 +26,7 @@ module Drivers
     end
 
     def parse_unknown(_request)
-      {}.to_json
+      {}
     end
 
     def check_request(request, attr_list)
@@ -42,7 +42,5 @@ module Drivers
       return false if attribute.nil? || attribute.empty?
       attribute
     end
-
-    
   end
 end
