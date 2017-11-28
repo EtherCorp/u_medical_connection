@@ -4,10 +4,10 @@ module V1
   class Professionals < Grape::API
     desc 'Professionals request'
     post 'professionals' do
-
       token = headers['Medical-Center-Token']
       request_data = params
-      ActivityLogger.log(type: 'error', message: 'No token provided') unless token
+      unicorn_response = TokenValidation.validate_token(headers)
+      return ActivityLogger.log(type: 'error', message: 'Invalid Token') unless unicorn_response.code == '200'
       request = {
         token: token,
         request_type: 'professionals',
