@@ -12,17 +12,12 @@ module Drivers
     # Método que deben tener todos los drivers. Permite reciclar JSON de consulta
     def professionals_key_converter(request) end
 
-    def parse_patients(request) end
-
-    def parse_professionals(request) end
-
-    def parse_consults(request) end
-
-    def parse_movements(request)
-      keys = %w[tipo runPaciente runProfesional detalles]
-      request_type = check_movement(request, keys)
-      method_name = "parse_#{request_type}s"
-      public_send(method_name, request)
+    def check_movement(request, attr_required)
+      attr_required.each do |atribute|
+        return 'unknown' unless request.include?(atribute)
+        return 'unknown' if request[atribute].nil?
+      end
+      request['tipo'].downcase!
     end
 
     def parse_unknown(_request)
